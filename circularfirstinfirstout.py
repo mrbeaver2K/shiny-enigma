@@ -1,18 +1,13 @@
 class circularfirstinfirstout():
     def __init__(self, targetLength):
-        self.buffer = []
-        self.pointer = 0
-        self.targetLength = targetLength
+        self.buffer = [None] * targetLength
+        self.pointer = 0 # Next Available Slot
+        self.length = len(self.buffer)
     def add(self, value):
-        if self.targetLength > 0:
-            self.buffer.append(value)
-            self.targetLength -= 1
-        else:
-            self.buffer[self.pointer] = value
-            self.pointer += 1
-            if self.pointer == len(self.buffer):
-                self.pointer = 0
-        print(value, self.read())
+        out = self.buffer[self.pointer]
+        self.buffer[self.pointer] = value
+        self.pointer = (self.pointer + 1) % self.length
+        return out
     def read(self, distance=None):
         modulePointer = self.pointer
         output = []
