@@ -1,4 +1,3 @@
-print("inline.py loading... -")
 import random
 minNumber = int(input("input lowest number> "))
 maxnumber = int(input("input highest number> "))
