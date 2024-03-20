@@ -12,16 +12,17 @@ class circularfirstinfirstout():
             self.pointer += 1
             if self.pointer == len(self.buffer):
                 self.pointer = 0
-        print(self.buffer)
+        print(value, self.read())
     def read(self, distance=None):
         modulePointer = self.pointer
         output = []
-        if distance == None:
-            distance = len(self.buffer)
-        output.append(self.buffer[modulePointer])
-        modulePointer += 1
-        if modulePointer == len(self.buffer):
-            modulePointer = 0
-        distance = distance - 1
-        if distance == 0:
-            return output
+        while True:
+            if distance == None:
+                distance = len(self.buffer)
+            output.append(self.buffer[modulePointer])
+            modulePointer += 1
+            if modulePointer == len(self.buffer):
+                modulePointer = 0
+            distance = distance - 1
+            if distance == 0:
+                return output
