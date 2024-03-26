@@ -10,7 +10,6 @@ class linkedListFIFO(linked_list.linkedListController):
             if self.remaining == 0:
                 self.shift()
             self.append(value)
-            self.head.print()
         else:
             self.sentinel.add(value)
             self.setup = True
