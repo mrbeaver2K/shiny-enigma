@@ -1,12 +1,12 @@
 def factorial(n):
     acc = 1
-    for i in range(1, n):
+    for i in range(1, n + 1):
         acc *= i
     return acc
 
 def factorial_recursive(n, p=1):
-    if n - 1 > 0:
-        return factorial_recursive(n - 1, (n - 1) * p)
+    if n > 0:
+        return factorial_recursive(n - 1, n * p)
     else:
         return p
 

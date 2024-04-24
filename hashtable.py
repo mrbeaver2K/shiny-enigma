@@ -1,4 +1,4 @@
-import linked_list
+from linked_list import *
 class hashtable():
     def __init__(self, m):
         self.m = m
@@ -26,9 +26,9 @@ class hashtable():
     def dump(self):
         return [i for i in self.table if i]
 with open("words.txt", "r") as f:
-    h = hashtable(1693)
+    h = hashtable(10007)
     for i in f.readlines():
         i = i[:-1]
         h.add(i, i + i)
     for i in h.dump():
-        print(*i)
+        print(*list(i.parseGenerator()))
