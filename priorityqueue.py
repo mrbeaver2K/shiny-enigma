@@ -21,7 +21,7 @@ class pq():
 			self.queue[1] = self.queue.pop()
 			pointer = 1
 			while pointer * 2 < self.getLen():
-				if self.queue[pointer * 2] >  self.queue[pointer] or (pointer * 2 == len(self.queue) or self.queue[pointer * 2 + 1] < self.queue[pointer]):
+				if self.queue[pointer * 2] >  self.queue[pointer] and self.queue[pointer * 2 + 1] <= self.queue[pointer * 2] or pointer * 2 == len(self.queue):
 					self.queue[pointer], self.queue[pointer * 2] = self.queue[pointer * 2], self.queue[pointer]
 					pointer = pointer * 2
 				elif self.queue[pointer * 2 + 1] >  self.queue[pointer]:
@@ -58,23 +58,20 @@ for i in (10, 20, 30, 40, 50):
 	run(f"test.add({i})", d=False)
 print("Sorted:")
 run("test.pull()", 5)
-try:
-	n = 10
-	start = timeStamp()
-	while n <= 100000:
-		testArray = [randint(0, 10) for i in range(0, n)]  # 10 is an arbitrary constant.
-		start.reset()
-		amount = sum(testArray)
-		for i in testArray:
-			test.add(i)
-		testArray = []
-		for i in range(0, n):
-			testArray.append(test.pull())
-		assert sum(testArray) == amount
-		for i in range(1, len(testArray) - 1):
-			assert testArray[i - 1] >= testArray[i]
-		print(n, start.check(), sep="\t")
-		n *= 10
-except KeyboardInterrupt:
-	print("Ctrl-C")
+n = 10
+start = timeStamp()
+while n <= 10000000:
+        testArray = [i for i in range(0, n)]
+        start.reset()
+        amount = sum(testArray)
+        for i in testArray:
+                test.add(i)
+        testArray = []
+        for i in range(0, n):
+                testArray.append(test.pull())
+        assert sum(testArray) == amount
+        for i in range(1, len(testArray) - 1):
+                assert testArray[i - 1] >= testArray[i]
+        print(n, start.check(), sep="\t")
+        n *= 10
 
