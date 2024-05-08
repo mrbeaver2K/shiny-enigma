@@ -60,7 +60,7 @@ print("Sorted:")
 run("test.pull()", 5)
 n = 10
 start = timeStamp()
-while n <= 10000000:
+while n <= 100000:
         testArray = [i for i in range(0, n)]
         start.reset()
         amount = sum(testArray)
