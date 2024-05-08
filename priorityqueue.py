@@ -1,4 +1,6 @@
 #!/usr/bin/env/python3
+from random import randint
+from time import time
 class pq():
 	def __init__(self):
 		self.queue = [None]
@@ -42,9 +44,37 @@ def run(s, t=1, d=True):
 		else:
 			exec(s)
 
+class timeStamp():
+	def __init__(self):
+		self.reset()
+	def reset(self):
+		self.start = time()
+	def check(self):
+		return time() - self.start
+
 test = pq()
 print("Input: (10, 20, 30, 40, 50)")
 for i in (10, 20, 30, 40, 50):
 	run(f"test.add({i})", d=False)
 print("Sorted:")
 run("test.pull()", 5)
+try:
+	n = 10
+	start = timeStamp()
+	while n <= 100000:
+		testArray = [randint(0, 10) for i in range(0, n)]  # 10 is an arbitrary constant.
+		start.reset()
+		amount = sum(testArray)
+		for i in testArray:
+			test.add(i)
+		testArray = []
+		for i in range(0, n):
+			testArray.append(test.pull())
+		assert sum(testArray) == amount
+		for i in range(1, len(testArray) - 1):
+			assert testArray[i - 1] >= testArray[i]
+		print(n, start.check(), sep="\t")
+		n *= 10
+except KeyboardInterrupt:
+	print("Ctrl-C")
+
