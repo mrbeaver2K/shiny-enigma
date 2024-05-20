@@ -16,13 +16,13 @@ class linkedListNode():
             if mode == "d":
                 raise LinkedListRelinkException("NextItem is already defined")
             if mode == "i":
-                self.nextItem = linkedListNode(nextItem).add(self.nextItem, "d")
+                self.nextItem = linkedListNode(nextItem).add(self.nextItem.value, "d")
             if mode == "a":
-                self._parse().add(linkedListNode(nextItem, "d"))
+                self._parse().add(nextItem, "d")
         else:
-            self.nextItem = nextItem
+            self.nextItem = linkedListNode(nextItem)
         return self
-    def _parse(self, distance):
+    def _parse(self, distance=-1):
         # Parses until the destination item or the end is reached.
         amount = 0
         item = self
@@ -43,7 +43,7 @@ class linkedListNode():
             item = item.nextItem
     def print(self):
         print(self.value, end="")
-        if self.nextItem.isSentinel:
+        if self.nextItem == None or self.nextItem.isSentinel:
             print()
             return
         self.nextItem.print()
@@ -60,3 +60,9 @@ class LinkedListRelinkException(Exception):
     pass
 class LinkedListSentinelAddItemException(Exception):
     pass
+print("This script adds a linked list implementation")
+print("Each linked list extends itself when values are added")
+test = linkedListNode(0)
+for i in range(0, 10):test.add(i, "a")
+print("And they can be emptied back in")
+test.print()
