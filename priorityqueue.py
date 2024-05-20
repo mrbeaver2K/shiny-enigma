@@ -58,12 +58,13 @@ for i in (10, 20, 30, 40, 50):
 	run(f"test.add({i})", d=False)
 print("Sorted:")
 run("test.pull()", 5)
-n = 10
+print("Sorting an entire list via heaping is O(n log n)")
+n = 100
 start = timeStamp()
-while n <= 100000:
-        testArray = [i for i in range(0, n)]
-        start.reset()
+while n <= 1000000:
+        testArray = [randint(0, n) for i in range(0, n)]
         amount = sum(testArray)
+        start.reset()
         for i in testArray:
                 test.add(i)
         testArray = []
@@ -72,6 +73,16 @@ while n <= 100000:
         assert sum(testArray) == amount
         for i in range(1, len(testArray) - 1):
                 assert testArray[i - 1] >= testArray[i]
+        print(n, start.check(), sep="\t")
+        n *= 10
+print("Getting the lowest element from a heap is O(n)")
+n = 1000
+while n <= 10000000:
+        testArray = [randint(0, n) for i in range(0, n)]
+        start.reset()
+        for i in testArray:
+                test.add(i)
+        test.pull()
         print(n, start.check(), sep="\t")
         n *= 10
 
