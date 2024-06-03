@@ -79,7 +79,7 @@ while n <= 10000:
                 assert testArray[i] >= testArray[i]
         print(n, start.check(), sep="\t")
         n *= 10
-print("Getting the lowest element from a heap is O(n)")
+print("Finding the lowest element in a list with heaping is O(n)")
 n = 1000
 while n <= 100000:
         testArray = [randint(0, n) for i in range(0, n)]
