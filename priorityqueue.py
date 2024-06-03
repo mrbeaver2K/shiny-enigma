@@ -66,7 +66,7 @@ run("test.pull()", 5)
 print("Sorting an entire list via heaping is O(n log n)")
 n = 100
 start = timeStamp()
-while n <= 1000:
+while n <= 10000:
         testArray = [randint(0, n) for i in range(0, n)]
         amount = sum(testArray)
         start.reset()
@@ -81,7 +81,7 @@ while n <= 1000:
         n *= 10
 print("Getting the lowest element from a heap is O(n)")
 n = 1000
-while n <= 10000:
+while n <= 100000:
         testArray = [randint(0, n) for i in range(0, n)]
         start.reset()
         for i in testArray:
