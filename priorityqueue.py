@@ -53,7 +53,7 @@ class timeStamp():
 		return time() - self.start
 
 test = pq()
-print("This code demonstrates a priority queue,\nfirst given a set of five random numbers, which it sorts.\nIt then sorts random lists of increasing size (with benchmarks),\nthen retrieves the first element from random lists of increasing size.")
+print("This code demonstrates a priority queue,\nfirst given a set of five random numbers, which it sorts.\nIt then sorts random lists of increasing size (with benchmarks),\nthen retrieves the least element from random lists of increasing size by heaping.")
 testSet = set()
 while len(testSet) < 5:
         testSet.add(randint(0, 50))
