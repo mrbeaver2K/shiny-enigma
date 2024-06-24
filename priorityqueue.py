@@ -52,41 +52,41 @@ class timeStamp():
 	def check(self):
 		return time() - self.start
 
-test = pq()
-print("This code demonstrates a priority queue, first given a set of five random numbers, which it sorts. It then sorts random lists of increasing size (with benchmarks), then retrieves the first element from random lists of increasing size.")
+heap = pq()
+print("This code demonstrates a priority queue or heap (wikipedia.org/wiki/Heap_(data_structure)),\nfirst given a set of five random numbers, which it sorts (1).\nIt then sorts random lists of increasing size (with benchmarks) (2),\nthen retrieves the least element from random lists of increasing size by heaping (3).")
 testSet = set()
 while len(testSet) < 5:
         testSet.add(randint(0, 50))
 #testSet = list(testSet)
-print("Input: " + str(testSet))
+print("1. Input list: " + str(testSet))
 for i in testSet:
-	run(f"test.add({i})", d=False)
+	run(f"heap.add({i})", d=False)
 print("Sorted:")
-run("test.pull()", 5)
-print("Sorting an entire list via heaping is O(n log n)")
+run("heap.pull()", 5)
+print("2. Sorting an entire list via heaping is O(n log n)\n(The first column is n, and the second column is the time for the given n)")
 n = 100
 start = timeStamp()
-while n <= 1000:
+while n <= 10000:
         testArray = [randint(0, n) for i in range(0, n)]
         amount = sum(testArray)
         start.reset()
-        test.queue = [None] + testArray
+        heap.queue = [None] + testArray
         testArray = []
         for i in range(0, n):
-                testArray.append(test.pull())
+                testArray.append(heap.pull())
         assert sum(testArray) == amount
         for i in range(1, len(testArray) - 1):
                 assert testArray[i] >= testArray[i]
         print(n, start.check(), sep="\t")
         n *= 10
-print("Getting the lowest element from a heap is O(n)")
+print("3. Finding the lowest element in a list with heaping is O(n)")
 n = 1000
-while n <= 10000:
+while n <= 100000:
         testArray = [randint(0, n) for i in range(0, n)]
         start.reset()
         for i in testArray:
-                test.add(i)
-        test.pull()
+                heap.add(i)
+        heap.pull()
         print(n, start.check(), sep="\t")
         n *= 10
 
