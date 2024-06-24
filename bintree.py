@@ -34,6 +34,18 @@ class binTree():
         for i in args:
             self.add(i)
         return self
+    def enumLower(self):
+        """Counts how many elements are in the tree below this one."""
+        if self.active:
+            return self.left.enumLower() + self.right.enumLower() + 1
+        else:
+            return 0
+    def enumLengthLower(self):
+        """Counts how long elements are in the tree below this one."""
+        if self.active:
+            return self.left.enumLengthLower() + self.right.enumLengthLower() + len(self.value)
+        else:
+            return 0
     def print(self):
         """Prints the whole tree in order"""
         if self.active:
@@ -41,6 +53,12 @@ class binTree():
             print(self.value)
             self.right.print()
         return self
+    def display(self, layer=True):
+        print((self.left.enumLengthLower() // 2) * "_" + self.value + "_" * (self.right.enumLengthLower // 2), end="")
+        if layer:
+            print()
+        self.left.display(False)
+        self.right.display(layer)
     def remove(self):
         """Drops a value from the tree"""
         if self.root == self:
