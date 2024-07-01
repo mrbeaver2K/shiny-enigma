@@ -1,3 +1,4 @@
+from math import pi
 class binTree():
     def __init__(self, _root=None):
         self.active = False # Is this node in the structure?
@@ -40,12 +41,15 @@ class binTree():
             return self.left.enumLower() + self.right.enumLower() + 1
         else:
             return 0
-    def enumLengthLower(self):
+    def enumLengthLower(self, xrep=0):
         """Counts how long elements are in the tree below this one."""
         if self.active:
-            return self.left.enumLengthLower() + self.right.enumLengthLower() + len(self.value)
+            return self.left.enumLengthLower(xrep - 1) + self.right.enumLengthLower(xrep - 1) + len(str(self.value))
         else:
-            return 0
+            if xrep > 0:
+                return 2 ** xrep - 1
+            else:
+                return 0
     def print(self):
         """Prints the whole tree in order"""
         if self.active:
@@ -53,12 +57,24 @@ class binTree():
             print(self.value)
             self.right.print()
         return self
-    def display(self, layer=True):
-        print((self.left.enumLengthLower() // 2) * "_" + self.value + "_" * (self.right.enumLengthLower // 2), end="")
-        if layer:
+    def display(self):
+        depth = self.depth()
+        print(self.left.enumLengthLower(depth - 1) * "_" + str(self.value) + "_" * self.right.enumLengthLower(depth - 1))
+        prev = [self]
+        for i in range(0, depth - 1):
+            level = self.obtain(i)
+            for j in level:
+                if j.active:
+                    print(j.left.enumLengthLower(depth - i - 2) * "_" + str(j.value) + "_" * j.right.enumLengthLower(depth - i - 2), end=" ")
+                else:
+                    print((depth - i - 2) * "_" + "x" + "_" * (depth - i - 2), end=" ")
+            new = []
+            for j in range(0, len(prev) - 1):
+                new.append(level[j])
+                new.append(prev[j])
+            new.append(level[len(prev)])
+            prev = new
             print()
-        self.left.display(False)
-        self.right.display(layer)
     def remove(self):
         """Drops a value from the tree"""
         if self.root == self:
@@ -106,6 +122,23 @@ class binTree():
                 return item, True
         return None, False
         return self
+    def depth(self, level=0):
+        if self.active:
+            left = self.left.depth(level + 1)
+            right = self.right.depth(level + 1)
+            if left >= right:
+                return left
+            else:
+                return right
+        else:
+            return level
+    def obtain(self, level):
+        if self.active and level == 0:
+            return [self.left, self.right]
+        elif self.active:
+            return self.left.obtain(level - 1) + self.right.obtain(level - 1)
+        else:
+            return []
     def scan(self):
         """Checks a tree structure for sanity."""
         if self.active:
@@ -121,3 +154,24 @@ class binTree():
         self.left = binTree(self.root)
         self.right = binTree(self.root)
         self.active = True
+test = binTree()
+test.add(2)
+test.display()
+print()
+test.add(1)
+test.display()
+print()
+test.add(4)
+test.display()
+print()
+test.add(5)
+test.display()
+print()
+test.add(1.2)
+test.display()
+print()
+test.add(0.5)
+test.display()
+print()
+test.add(pi)
+test.display()
